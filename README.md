@@ -10,11 +10,11 @@ Social Media platform build with swiftUI and Firebase with google and apple acco
 
 
 
-<img src="https://user-images.githubusercontent.com/58638886/140026475-351ce15a-7fb5-48ae-af71-fbbbbc3a84c9.png" width="30%" height="25%">
-<img src="https://user-images.githubusercontent.com/58638886/140026483-0067c5e9-b327-4119-83b7-56f8709b8818.png" width="30%" height="25%">
-<img src="https://user-images.githubusercontent.com/58638886/140026545-02e358d7-704d-41c3-8e73-0f94069f2971.png" width="30%" height="25%">
-<img src="https://user-images.githubusercontent.com/58638886/140026551-1b0e3853-2a06-46a2-96f2-ea98fe0a9354.png" width="30%" height="25%">
-<img src="https://user-images.githubusercontent.com/58638886/140026652-acd127f2-5d60-4e49-83df-4022485f89dc.png" width="30%" height="25%">
+<img src="https://user-images.githubusercontent.com/58638886/140026475-351ce15a-7fb5-48ae-af71-fbbbbc3a84c9.png" width="30%" height="25%"> <img src="https://user-images.githubusercontent.com/58638886/140026483-0067c5e9-b327-4119-83b7-56f8709b8818.png" width="30%" height="25%">
+
+<img src="https://user-images.githubusercontent.com/58638886/140026545-02e358d7-704d-41c3-8e73-0f94069f2971.png" width="30%" height="25%"> <img src="https://user-images.githubusercontent.com/58638886/140026551-1b0e3853-2a06-46a2-96f2-ea98fe0a9354.png" width="30%" height="25%"> <img src="https://user-images.githubusercontent.com/58638886/140026652-acd127f2-5d60-4e49-83df-4022485f89dc.png" width="30%" height="25%">
+
+
 
 
 This is a short view of the Firestore Database 
