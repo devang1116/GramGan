@@ -105,7 +105,7 @@ class AuthService
         let userID = document.documentID
         
         // Upload Profile Image to Database
-        ImageManager.instane.uploadImage(userID: userID, image: profileImage)
+        ImageManager.instance.uploadProfileImage(userID: userID, image: profileImage)
 
         // Upload Prpfole dtaa to Database
         let userData : [String : Any] = [DatabaseUserFields.display_name : name ,
@@ -162,6 +162,43 @@ class AuthService
             else
             {
                 handler(nil)
+                return
+            }
+        }
+    }
+    
+    //MARK: UPDATE USER FUNCTIONS
+    func updateUserDisplayName(userID : String , displayName : String , handler : @escaping(_ success : Bool) -> ())
+    {
+        let data : [String : Any] = [DatabaseUserFields.display_name : displayName]
+        REF_USERS.document(userID).updateData(data) { error in
+            if let err = error
+            {
+                print("Error updating the Display name")
+                handler(false)
+                return
+            }
+            else
+            {
+                handler(true)
+                return
+            }
+        }
+    }
+    
+    func updateUserBio(userID : String , bio : String , handler : @escaping(_ success : Bool) -> ())
+    {
+        let data : [String : Any] = [DatabaseUserFields.bio : bio]
+        REF_USERS.document(userID).updateData(data) { error in
+            if let err = error
+            {
+                print("Error updating the Display name")
+                handler(false)
+                return
+            }
+            else
+            {
+                handler(true)
                 return
             }
         }

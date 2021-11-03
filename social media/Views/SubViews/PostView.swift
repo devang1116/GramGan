@@ -9,19 +9,24 @@ import SwiftUI
 
 struct PostView: View
 {
-    @State var postModel : PostModel
+    @State var post : PostModel
     @State var animateLike : Bool = false
     @State var addHeartAnimation : Bool
     var showHeadFoot : Bool = true
-    @State var postImage: UIImage = UIImage(named: "dog1")!
     
-    enum PostActionSheetOption {
+    enum PostActionSheetOption
+    {
         case general
         case reporting
     }
     
+    @State var postImage: UIImage = UIImage(named: "logo.loading")!
+    @State var profileImage : UIImage  = UIImage(named: "logo.loading")!
+    
     @State var showActionSheet: Bool = false
     @State var actionSheetType: PostActionSheetOption = .general
+    
+    @AppStorage(CurrentUserDefaults.userID) var currentUserID : String?
     
     var body: some View
     {
@@ -34,15 +39,18 @@ struct PostView: View
                 {
                     NavigationLink
                     {
-                        ProfileView(isMyProfile: false, profileDisplayName: postModel.username, profileUserId: postModel.userId)
+                        LazyView {
+                            ProfileView(isMyProfile: false, profileDisplayName: post.username, posts: PostModelArray(userID: post.userId), profileUserId: post.userId, profileBio: " ")
+                        }
+                        
                     } label: {
-                        Image("dog1")
+                        Image(uiImage: profileImage)
                             .resizable()
                             .scaledToFit()
                             .frame(width: 30, height: 30, alignment: .center)
                         .cornerRadius(15)
                         
-                        Text(postModel.username)
+                        Text(post.username)
                             .font(.callout)
                             .fontWeight(.medium)
                             .foregroundColor(.primary)
@@ -67,7 +75,7 @@ struct PostView: View
             //MARK: Image
             ZStack
             {
-                Image("dog1")
+                Image(uiImage: postImage)
                     .resizable()
                 .scaledToFit()
                 
@@ -83,7 +91,7 @@ struct PostView: View
                 HStack(alignment: .center, spacing: 20, content: {
                     
                     Button {
-                        if postModel.likedByUser
+                        if post.likedByUser
                         {
                             unlikePost()
                         }
@@ -92,14 +100,14 @@ struct PostView: View
                             likePost()
                         }
                     } label: {
-                        Image(systemName: postModel.likedByUser ? "heart.fill" : "heart")
+                        Image(systemName: post.likedByUser ? "heart.fill" : "heart")
                             .font(.title3)
                     }
-                    .accentColor(postModel.likedByUser ? Color.red : Color.primary)
+                    .accentColor(post.likedByUser ? Color.red : Color.primary)
 
                     
-                    
-                    NavigationLink(destination: CommentsView() ,
+    
+                    NavigationLink(destination: CommentsView(post: post) ,
                                    label: {
                                         Image(systemName: "bubble.middle.bottom")
                                                     .font(.title3)
@@ -108,41 +116,90 @@ struct PostView: View
                     
                     Image(systemName: "paperplane")
                         .font(.title3)
+                        .onTapGesture
+                        {
+                            sharePost()
+                        }
                     Spacer()
                 })
                     .padding(.all , 10)
                 HStack {
-                    Text(postModel.caption ?? " ")
+                    Text(post.caption ?? " ")
                         .font(.caption)
                     Spacer(minLength: 0)
                 }
                 .padding(.all , 6)
             }
         })
+            .onAppear
+            {
+                getImages()
+            }
     }
     
     //MARK: Functions
     func likePost()
     {
-        let post = PostModel(postId: postModel.postId, userId: postModel.userId, username: postModel.username, caption: postModel.caption, likeCount: postModel.likeCount + 1, dateCreate: postModel.dateCreate, likedByUser: true)
-        self.postModel = post
+        // Check if user is Signed in
+        guard let userID = currentUserID else
+        {
+            print("Cannot find UserID while liking the post")
+            return
+        }
+        
+        // Update the Local Data
+        let post = PostModel(postId: post.postId, userId: post.userId, username: post.username, caption: post.caption, likeCount: post.likeCount + 1, dateCreate: post.dateCreate, likedByUser: true)
+        self.post = post
 
+        // Animate UI
         animateLike = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             animateLike = false
         }
+        
+        // Update the Database
+        DataService.instance.likePost(postID: post.postId, currentUserID: userID)
     }
 
     func unlikePost()
     {
-        let post = PostModel(postId: postModel.postId, userId: postModel.userId, username: postModel.username, caption: postModel.caption, likeCount: postModel.likeCount - 1, dateCreate: postModel.dateCreate, likedByUser: false)
+        // Check if user is Signed in
+        guard let userID = currentUserID else
+        {
+            print("Cannot find UserID while unLiking the post")
+            return
+        }
+        
+        // Update the Local Data
+        let post = PostModel(postId: post.postId, userId: post.userId, username: post.username, caption: post.caption, likeCount: post.likeCount - 1, dateCreate: post.dateCreate, likedByUser: false)
 
-        self.postModel = post
+        self.post = post
+        
+        // Update the Database
+        DataService.instance.unLikePost(postID: post.postId, currentUserID: userID)
+    }
+    
+    func getImages()
+    {
+        ImageManager.instance.downloadProfileImage(userID: post.userId) { returnedImage in
+            if let image = returnedImage
+            {
+                self.profileImage = image
+            }
+            
+            ImageManager.instance.downloadPostImage(postID: post.postId) { returnedImage in
+                if let image = returnedImage
+                {
+                    self.postImage = image
+                }
+            }
+        }
     }
     
     func getActionSheet() -> ActionSheet {
         
-        switch self.actionSheetType {
+        switch self.actionSheetType
+        {
         case .general:
             return ActionSheet(title: Text("What would you like to do?"), message: nil, buttons: [
                 .destructive(Text("Report"), action: {
@@ -182,13 +239,15 @@ struct PostView: View
         
     }
     
-    func reportPost(reason: String) {
+    func reportPost(reason: String)
+    {
         print("REPORT POST NOW")
     }
 
-    func sharePost() {
+    func sharePost()
+    {
         
-        let message = "Check out this post on DogGram!"
+        let message = "Check out this post on GangGram"
         let image = postImage
         let link = URL(string: "https://www.google.com")!
         
@@ -205,6 +264,6 @@ struct PostView_Previews: PreviewProvider
     static var post : PostModel = PostModel(postId: "", userId: "", username: "Joe Green", caption: "This is test cption", likeCount: 0, dateCreate: Date(), likedByUser: false)
     static var previews: some View
     {
-        PostView(postModel: post , addHeartAnimation : true, showHeadFoot: true)
+        PostView(post: post , addHeartAnimation : true, showHeadFoot: true)
     }
 }

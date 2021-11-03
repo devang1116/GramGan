@@ -11,6 +11,12 @@ struct CommentsView: View
 {
     @State var submissionText : String = " "
     @State var comments = [CommentModel]()
+    var post : PostModel
+    
+    @State var profileImage : UIImage = UIImage(named: "logo.loading")!
+    @AppStorage(CurrentUserDefaults.userID) var currentUserID : String?
+    @AppStorage(CurrentUserDefaults.displayName) var currentDisplayName : String?
+    
     var body: some View
     {
         VStack
@@ -21,7 +27,7 @@ struct CommentsView: View
                 LazyVStack
                 {
                     ForEach(comments, id:\.self) { comment in
-                        MessageView(commentModel: comment)
+                        MessageView(comment: comment)
                     }
                 }
             }
@@ -30,7 +36,7 @@ struct CommentsView: View
             //MARK: Add Comment
             HStack
             {
-                Image("dog1")
+                Image(uiImage: profileImage)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 40, height:40, alignment: .center)
@@ -38,13 +44,15 @@ struct CommentsView: View
                 
                 TextField("Add a comment here", text: $submissionText)
                 
-                Button ( action : {
-                    
-                } , label : {
-                    Image("paperplane.fill")
+                Button(action: {
+                    if textIsAppropriate() {
+                        addComment()
+                    }
+                }, label: {
+                    Image(systemName: "paperplane.fill")
                         .font(.title2)
                 })
-                    .accentColor(Color.purple)
+                    .accentColor(Color.red)
                 
                 
             }
@@ -54,33 +62,83 @@ struct CommentsView: View
         .navigationBarTitleDisplayMode(.inline)
         .onAppear(perform: {
             getComments()
+            getProfilePicture()
         })
     }
     
     //MARK: Functions
+    func getProfilePicture()
+    {
+        // check if user if logged in
+        guard let userID = currentUserID else
+        {
+            return
+        }
+        
+        // download the profile picture
+        ImageManager.instance.downloadProfileImage(userID: userID) { returnedImage in
+            if let image = returnedImage
+            {
+                self.profileImage = image
+            }
+        }
+    }
+    
     func getComments()
     {
+        guard self.comments.isEmpty else { return }
+        
         print("Gets Comments from Database")
         
-        var comment1 = CommentModel(commentId: "", userId: "", username: "Joe Breen", content: "Hey its sick", dateCreated: Date())
-        var comment2 = CommentModel(commentId: "", userId: "", username: "Emily Watson", content: "yo shut the fuck up", dateCreated: Date())
-        var comment3 = CommentModel(commentId: "", userId: "", username: "Jaylen Brwon", content: "ill dunk on yo bitch ass", dateCreated: Date())
-        var comment4 = CommentModel(commentId: "", userId: "", username: "Lebron James", content: "Yo its the king", dateCreated: Date())
+        DataService.instance.downloadComments(postID: post.postId) { (returnedComments) in
+            self.comments.append(contentsOf: returnedComments)
+        }
+    }
+    
+    func textIsAppropriate() -> Bool
+    {
+        // Check if the comment is InAppropriate
+        let badWordArray : [String] = ["shit" , "ass"]
         
-        self.comments.append(comment1)
-        self.comments.append(comment2)
-        self.comments.append(comment3)
-        self.comments.append(comment4)
+        let words = submissionText.components(separatedBy: " ")
+        for word in words
+        {
+            if badWordArray.contains(word)
+            {
+                return false
+            }
+        }
+        
+        if submissionText.count < 3
+        {
+            return false
+        }
+        return true
+     }
+    
+    func addComment()
+    {
+        guard let userID = currentUserID ,let  displayName = currentDisplayName else { return }
+        DataService.instance.uploadComments(postID: post.postId, content: submissionText, displayName: displayName, userID: userID) { success, returnedCommentID in
+            if success , let commentID = returnedCommentID
+            {
+                let comment = CommentModel(commentId: commentID, userId: userID, username: displayName, content: submissionText, dateCreated: Date())
+                self.comments.append(comment)
+                self.submissionText = ""
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+            }
+        }
     }
 }
 
 struct CommentsView_Previews: PreviewProvider
 {
+    static var post = PostModel( postId: "", userId: "", username: "", caption: "", likeCount: 0, dateCreate: Date(), likedByUser: false)
     static var previews: some View
     {
         NavigationView
         {
-            CommentsView()
+            CommentsView(post: post)
         }
     }
 }

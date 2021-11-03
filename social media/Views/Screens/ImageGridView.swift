@@ -22,7 +22,7 @@ struct ImageGridView: View
             ForEach(posts.dataArray, id:\.self ) { post in
                 NavigationLink(destination: FeedView(posts: PostModelArray(post: post ) , title: "Post"))
                 {
-                    PostView(postModel: post , addHeartAnimation: false,  showHeadFoot: false )
+                    PostView(post: post , addHeartAnimation: false,  showHeadFoot: false )
                 }
             }
         })

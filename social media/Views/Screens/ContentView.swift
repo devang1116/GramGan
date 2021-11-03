@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View
 {
     @AppStorage(CurrentUserDefaults.userID) var currentUserID : String?
+    @AppStorage(CurrentUserDefaults.displayName) var currentDisplayName : String?
     @State var userSignedIn : String? = nil
     
     var body: some View
@@ -19,7 +20,7 @@ struct ContentView: View
             //MARK: Feed View
             NavigationView
             {
-                FeedView(posts: PostModelArray() ,  title: "Feed")
+                FeedView(posts: PostModelArray(shuffled: false) ,  title: "Feed")
             }
                 .tabItem {
                     Image(systemName: "book.fill")
@@ -28,7 +29,7 @@ struct ContentView: View
             
             NavigationView
             {
-                BrowseView()
+                BrowseView(posts: PostModelArray(shuffled: true))
             }
                 .tabItem {
                     Image(systemName: "magnifyingglass")
@@ -44,10 +45,10 @@ struct ContentView: View
             
             ZStack
             {
-                if let userID = currentUserID {
+                if let userID = currentUserID , let displayName = currentDisplayName {
                     NavigationView
                     {
-                        ProfileView(isMyProfile: true, profileDisplayName: "My Profile" , profileUserId: "")
+                        ProfileView(isMyProfile: true, profileDisplayName: displayName, posts: PostModelArray(userID: userID) , profileUserId: userID, profileBio: " ")
                             
                     }
                 }

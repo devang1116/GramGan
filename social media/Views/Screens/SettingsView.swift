@@ -10,6 +10,10 @@ import SwiftUI
 struct SettingsView: View
 {
     @Environment(\.presentationMode) var presentationMode
+    
+    @Binding var userBio : String
+    @Binding var userName : String
+    @Binding var userProfilePicture : UIImage
     var body: some View
     {
         NavigationView
@@ -35,7 +39,6 @@ struct SettingsView: View
                 .padding()
                 
                 //MARK: Section 2 : Profile
-                
                 GroupBox {
                     
                 } label: {
@@ -43,21 +46,21 @@ struct SettingsView: View
                         SettingsLabelView(labelText: "Profile", labelImage: "person.fill")
                         
                         NavigationLink {
-                            SettingsEditTextView(submissionText: "Currnet User", title: "Display Name", placeholder: "Your Display Name here", description: "You can edit your Display Name here")
+                            SettingsEditTextView(submissionText: userName, title: "Display Name", placeholder: "Your Display Name here", description: "You can edit your Display Name here" , settingsEditTextOption: .displayName , profileText: $userName)
                         } label: {
                             SettingsRowView(leftIcon: "pencil", rowTitle: "Display Name", color: Color.purple)
                         }
                         Divider()
                         
                         NavigationLink {
-                            SettingsEditTextView(submissionText: "Your Bio", title: "Bio", placeholder: "your Bio here", description: "Your Bio can be changed here")
+                            SettingsEditTextView(submissionText: userBio, title: "Bio", placeholder: "your Bio here", description: "Your Bio can be changed here" , settingsEditTextOption: .bio , profileText: $userBio)
                         } label: {
                             SettingsRowView(leftIcon: "text.quote", rowTitle: "Bio", color: Color.purple)
                         }
                         Divider()
                         
                         NavigationLink {
-                            SettingsEditImageView(title: "Profile Picture", description: "You can change your Profile picture here", selectedImage: UIImage(named: "dog1")!, showImagePicker: true)
+                             SettingsEditImageView(title: "Profile Picture", description: "You can change your Profile picture here", selectedImage: userProfilePicture, profileImage: $userProfilePicture, showImagePicker: true)
                         } label: {
                             SettingsRowView(leftIcon: "photo", rowTitle: "Profile", color: Color.purple)
                         }
@@ -154,9 +157,10 @@ struct SettingsView: View
 
 struct SettingsVIew_Previews: PreviewProvider
 {
+    @State static var testString : String = " "
+    @State static var testImage : UIImage = UIImage(named: "dog1")!
     static var previews: some View
     {
-            SettingsView()
-        
+        SettingsView(userBio: $testString, userName: $testString, userProfilePicture: $testImage)
     }
 }

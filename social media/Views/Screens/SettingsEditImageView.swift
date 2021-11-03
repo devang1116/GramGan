@@ -12,7 +12,12 @@ struct SettingsEditImageView: View
     @State var title : String
     @State var description : String
     @State var selectedImage : UIImage
+    @Binding var profileImage : UIImage //
     @State var sourceType = UIImagePickerController.SourceType.photoLibrary
+    @State var showAlert : Bool = false
+    @Environment(\.presentationMode) var presentationMode
+    
+    @AppStorage(CurrentUserDefaults.userID) var currentUserID : String?
     
     @State var showImagePicker : Bool
     
@@ -50,7 +55,7 @@ struct SettingsEditImageView: View
 
             
             Button {
-                
+                saveImage()
             } label: {
                 Text("Save")
                     .font(.title3)
@@ -68,17 +73,36 @@ struct SettingsEditImageView: View
         }
         .navigationBarTitle(title)
         .padding()
+        .alert(isPresented: $showAlert) { () -> Alert in
+            return Alert(title: Text("Saved"), message: nil, dismissButton: .default(Text("Ok"), action: {
+                self.presentationMode.wrappedValue.dismiss()
+            }))
+        }
 
+    }
+    
+    //MARK: FUNCTIONS
+    func saveImage()
+    {
+        guard let userID = currentUserID else { return }
+        // Update the UI of Profile
+        self.profileImage = selectedImage
+        
+        // Update profile image in Database
+        ImageManager.instance.uploadProfileImage(userID: userID, image: selectedImage)
+        
+        self.showAlert.toggle()
     }
 }
 
 struct SettingsEditImageView_Previews: PreviewProvider
 {
+    @State static var image : UIImage = UIImage(named: "dog1")!
     static var previews: some View
     {
         NavigationView
         {
-            SettingsEditImageView(title: "Profile Picture", description: "You can change your Profile Picture here", selectedImage: UIImage(named:"dog1")!, showImagePicker: true)
+            SettingsEditImageView(title: "Profile Picture", description: "You can change your Profile Picture here", selectedImage: UIImage(named:"dog1")!, profileImage: $image, showImagePicker: true)
         }
     }
 }

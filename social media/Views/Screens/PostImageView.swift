@@ -13,14 +13,22 @@ struct PostImageView: View
     @State var captionText : String = ""
     @Binding var imageSelected : UIImage
     
+    @AppStorage(CurrentUserDefaults.userID) var currentUserID : String?
+    @AppStorage(CurrentUserDefaults.displayName) var currentDisplayName : String?
+    
+    @State var showAlert : Bool = false
+    @State var postUpdatedSuccessfully : Bool = false
+    
     var body: some View
     {
         VStack(alignment: .center, spacing: 0, content: {
             HStack
             {
-                Button {
+                Button
+                {
                     presentationMode.wrappedValue.dismiss()
-                } label: {
+                } label:
+                {
                     Image(systemName: "xmark")
                         .font(.title2)
                         .padding()
@@ -46,7 +54,7 @@ struct PostImageView: View
                     .autocapitalization(.sentences)
                 
                 Button {
-                    
+                    postPicture()
                 } label: {
                     Text("Post Picture!".uppercased())
                         .font(.title3)
@@ -61,14 +69,43 @@ struct PostImageView: View
                 }
 
             })
+                .alert(isPresented: $showAlert) {
+                    getAlert()
+                }
         })
             .accentColor(.primary)
            
     }
     
+    // Uploads Posts to to Database
     func postPicture()
     {
         print("Post Picture to Database")
+        
+        guard let userID = currentUserID , let displayName = currentDisplayName else {
+            print("Error getting UserID of displayName of User")
+            return
+        }
+        
+        DataService.instance.uploadPost(image: imageSelected, caption: captionText, displayName: currentDisplayName ?? " ", userID: currentUserID ?? " " ) { success in
+            self.postUpdatedSuccessfully = success
+            self.showAlert.toggle()
+            
+        }
+    }
+    
+    func getAlert() -> Alert
+    {
+        if postUpdatedSuccessfully
+        {
+            return Alert(title: Text("Post Updated Successfully"), message: nil, dismissButton: .default(Text("Ok") , action: {
+                self.presentationMode.wrappedValue.dismiss()
+            }))
+        }
+        else
+        {
+            return Alert(title: Text("Post Update Not Successful"), message: nil, dismissButton: .default(Text("Ok")))
+        }
     }
 }
 

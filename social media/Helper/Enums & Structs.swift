@@ -25,3 +25,34 @@ struct CurrentUserDefaults
     static let bio = "bio"
     static let userID = "user_id"
 }
+
+// Fields within Post Document
+struct DatabasePostsField
+{
+    static let postID = "post_id"
+    static let userID = "user_id"
+    static let displayName = "display_name"
+    static let caption = "caption"
+    static let dateCreated = "data_created"
+    static let likedBy = "liked_by"         // ARRAY
+    static let likeCount = "like_count"  // INT
+    static let comments = "comments"      // SUB COLLECTION
+}
+
+// Fields within Comment Sub Collection of a Post
+struct DatabaseCommentsField
+{
+    static let commentID = "comment_id"
+    static let displayName = "display_name"
+    static let userID = "user_id"
+    static let content = "content"
+    static let dateCreated = "data_created"
+}
+
+// Updating the User Profile Data
+
+enum SettingsEditTextOption
+{
+   case displayName
+    case bio
+}

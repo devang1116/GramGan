@@ -10,15 +10,19 @@ import SwiftUI
 struct ProfileHeaderView: View
 {
     @Binding var profileDisplayName : String
+    @Binding var profileImage: UIImage
+    @ObservedObject var postArray : PostModelArray
+    @Binding var profileBio : String
+    
     var body: some View
     {
         VStack(alignment: .center, spacing: 10, content: {
             //MARK: Profile Picture
-            Image("dog1")
+            Image(uiImage: profileImage)
                 .resizable()
                 .scaledToFit()
                 .cornerRadius(60)
-                .frame(width: 60, height: 60, alignment: .center)
+                .frame(width: 120, height: 120, alignment: .center)
             
             //MARK: Profile User Name
             Text(profileDisplayName)
@@ -26,14 +30,27 @@ struct ProfileHeaderView: View
                 .fontWeight(.bold)
             
             //MARK: Profile Bio
-            Text("This is the area where the user can add their bio")
+            Text(profileBio)
                 .font(.body)
                 .fontWeight(.regular)
             
             //MARK: Profile Likes
             HStack(alignment: .center, spacing: 20, content: {
                 VStack(alignment: .center, spacing: 5) {
-                    Text("5")
+                    Text(postArray.likeCount)
+                        .font(.title2)
+                        .fontWeight(.bold)
+                    
+                    Capsule()
+                        .frame(width: 20, height: 2, alignment: .center)
+                    
+                    Text("Likes")
+                        .font(.callout)
+                        .fontWeight(.medium)
+                }
+                
+                VStack(alignment: .center, spacing: 5) {
+                    Text(postArray.posts)
                         .font(.title2)
                         .fontWeight(.bold)
                     
@@ -53,9 +70,10 @@ struct ProfileHeaderView: View
 
 struct ProfileHeaderView_Previews: PreviewProvider
 {
-    @State static var name = "Devang"
+    @State static var name : String = "Devang"
+    @State static var image: UIImage = UIImage(named: "dog1")!
     static var previews: some View
     {
-        ProfileHeaderView(profileDisplayName: $name)
+        ProfileHeaderView(profileDisplayName: $name, profileImage: $image, postArray: PostModelArray(shuffled: false), profileBio: $name)
     }
 }

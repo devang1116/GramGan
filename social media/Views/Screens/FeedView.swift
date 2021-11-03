@@ -20,7 +20,7 @@ struct FeedView: View
             LazyVStack
             {
                 ForEach(posts.dataArray ,  id:\.self) { post in
-                    PostView(postModel: post , addHeartAnimation: true,  showHeadFoot: true)
+                    PostView(post: post , addHeartAnimation: true,  showHeadFoot: true)
                 }
             }
         }
