@@ -29,7 +29,7 @@ struct SettingsView: View
                             .frame(width: 80, height: 80, alignment: .center)
                             .cornerRadius(12)
                         
-                        Text("Gram is the Best in the game Dawg")
+                        Text("Your GoTo Alternative for Social Media")
                             .font(.footnote)
                     })
                     
@@ -48,21 +48,21 @@ struct SettingsView: View
                         NavigationLink {
                             SettingsEditTextView(submissionText: userName, title: "Display Name", placeholder: "Your Display Name here", description: "You can edit your Display Name here" , settingsEditTextOption: .displayName , profileText: $userName)
                         } label: {
-                            SettingsRowView(leftIcon: "pencil", rowTitle: "Display Name", color: Color.purple)
+                            SettingsRowView(leftIcon: "pencil", rowTitle: "Display Name", color: Color("Purple"))
                         }
                         Divider()
                         
                         NavigationLink {
                             SettingsEditTextView(submissionText: userBio, title: "Bio", placeholder: "your Bio here", description: "Your Bio can be changed here" , settingsEditTextOption: .bio , profileText: $userBio)
                         } label: {
-                            SettingsRowView(leftIcon: "text.quote", rowTitle: "Bio", color: Color.purple)
+                            SettingsRowView(leftIcon: "text.quote", rowTitle: "Bio", color: Color("Purple"))
                         }
                         Divider()
                         
                         NavigationLink {
                              SettingsEditImageView(title: "Profile Picture", description: "You can change your Profile picture here", selectedImage: userProfilePicture, profileImage: $userProfilePicture, showImagePicker: true)
                         } label: {
-                            SettingsRowView(leftIcon: "photo", rowTitle: "Profile", color: Color.purple)
+                            SettingsRowView(leftIcon: "photo", rowTitle: "Profile", color: Color("Purple"))
                         }
                     
                         Divider()
@@ -70,7 +70,7 @@ struct SettingsView: View
                         Button {
                             signOut()
                         } label: {
-                            SettingsRowView(leftIcon: "figure.walk", rowTitle: "Sign out", color: Color.purple)
+                            SettingsRowView(leftIcon: "figure.walk", rowTitle: "Sign out", color: Color("Purple"))
                         }
 
                         
@@ -88,19 +88,19 @@ struct SettingsView: View
                     Button {
                         openURL(urlString: "https://www.udemy.com")
                     } label: {
-                        SettingsRowView(leftIcon: "folder.fill", rowTitle: "Privacy Policy", color: Color.yellow)
+                        SettingsRowView(leftIcon: "folder.fill", rowTitle: "Privacy Policy", color: Color("Yellow"))
                     }
                     
                     Button {
                         
                     } label: {
-                        SettingsRowView(leftIcon: "folder.fill", rowTitle: "Terms and Conditions", color: Color.yellow)
+                        SettingsRowView(leftIcon: "folder.fill", rowTitle: "Terms and Conditions", color: Color("Yellow"))
                     }
                     
                     Button {
                         
                     } label: {
-                        SettingsRowView(leftIcon: "globe", rowTitle: "Gram's Website", color: Color.yellow)
+                        SettingsRowView(leftIcon: "globe", rowTitle: "Gram's Website", color: Color("Yellow"))
                     }
 
 
@@ -111,7 +111,7 @@ struct SettingsView: View
 
                 //MARK: Section 4 : Sign Off
                 GroupBox {
-                    Text("Gram was made for bitches")
+                    Text("Version 1.1")
                 }
                 .padding()
             }

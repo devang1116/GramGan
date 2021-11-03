@@ -13,11 +13,16 @@ struct BrowseView: View
     var body: some View
     {
         ScrollView(.vertical, showsIndicators: false, content: {
-            CarouselView()
-            ImageGridView(posts: posts)
+            GroupBox {
+                
+            } label: {
+                CarouselView()
+                ImageGridView(posts: posts)
+            }
         })
             .navigationBarTitle("Browse")
             .navigationBarTitleDisplayMode(.inline)
+            .padding()
         
     }
 }

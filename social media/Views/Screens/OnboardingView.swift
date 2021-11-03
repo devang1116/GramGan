@@ -36,12 +36,12 @@ struct OnboardingView: View
                 .frame(width: 100, height: 100, alignment: .center)
                 .shadow(radius: 12)
            
-            Text("Welcome to Gram")
+            Text("Welcome to GramGan")
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .foregroundColor(Color.black)
             
-            Text("GramGang the best in the game , I aint even gon lie to you bout that.")
+            Text("GramGang is your fav Social Media Alternative.")
                 .font(.headline)
                 .multilineTextAlignment(.center)
                 .foregroundColor(Color.black)
@@ -66,7 +66,7 @@ struct OnboardingView: View
                 HStack
                 {
                     Image(systemName: "globe")
-                    Text("Sign in with Email")
+                    Text("Sign in with Gmail")
                         .foregroundColor(Color.white)
                 }
                 .frame(height:60)

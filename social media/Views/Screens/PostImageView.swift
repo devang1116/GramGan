@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct PostImageView: View
 {
     @Environment(\.presentationMode) var presentationMode
@@ -45,25 +46,28 @@ struct PostImageView: View
                     .clipped()
                 
                 TextField("Add you Text here", text: $captionText)
+                    .background(Color("Beige"))
                     .cornerRadius(12)
                     .padding(.horizontal)
                     .frame( height: 60)
                     .frame( maxWidth : .infinity )
-                    .background(Color.gray )
                     .font(.headline)
+                    .textFieldStyle(SuperCustomTextFieldStyle())
                     .autocapitalization(.sentences)
                 
-                Button {
+                Button
+                {
                     postPicture()
                 } label: {
                     Text("Post Picture!".uppercased())
                         .font(.title3)
+                        .foregroundColor(Color.white)
                         .fontWeight(.bold)
                         .padding()
                         .frame(height:60)
                         .frame(maxWidth : .infinity)
                         .cornerRadius(12)
-                        .background(Color.purple)
+                        .background(Color("Purple"))
                         .padding(.horizontal)
 
                 }
@@ -73,7 +77,7 @@ struct PostImageView: View
                     getAlert()
                 }
         })
-            .accentColor(.primary)
+            .accentColor(Color("Purple"))
            
     }
     

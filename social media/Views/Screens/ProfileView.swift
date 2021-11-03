@@ -24,8 +24,14 @@ struct ProfileView: View
     {
         ScrollView(.vertical, showsIndicators: false , content: {
             ProfileHeaderView(profileDisplayName: $profileDisplayName, profileImage: $profileImage, postArray: posts, profileBio: $profileBio)
+            
             Divider()
-            ImageGridView(posts: posts)
+            
+            GroupBox {
+                
+            } label: {
+                ImageGridView(posts: posts)
+            }
         })
             .navigationBarTitle("Profile")
             .navigationBarTitleDisplayMode(.inline)

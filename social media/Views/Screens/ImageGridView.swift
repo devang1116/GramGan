@@ -12,20 +12,20 @@ struct ImageGridView: View
     @ObservedObject var posts = PostModelArray()
     var body: some View
     {
-        LazyVGrid(columns: [GridItem(.flexible()) ,
-                            GridItem(.flexible()),
-                            GridItem(.flexible())],
-                  alignment: .center,
-                  spacing: nil,
-                  pinnedViews: [],
-                  content: {
-            ForEach(posts.dataArray, id:\.self ) { post in
-                NavigationLink(destination: FeedView(posts: PostModelArray(post: post ) , title: "Post"))
-                {
-                    PostView(post: post , addHeartAnimation: false,  showHeadFoot: false )
+            LazyVGrid(columns: [GridItem(.flexible()) ,
+                                GridItem(.flexible()),
+                                GridItem(.flexible())],
+                      alignment: .center,
+                      spacing: nil,
+                      pinnedViews: [],
+                      content: {
+                ForEach(posts.dataArray, id:\.self ) { post in
+                    NavigationLink(destination: FeedView(posts: PostModelArray(post: post ) , title: "Post"))
+                    {
+                        PostView(post: post , addHeartAnimation: false,  showHeadFoot: false )
+                    }
                 }
-            }
-        })
+            })
     }
 }
 

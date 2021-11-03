@@ -21,8 +21,10 @@ struct ImageManager
     //MARK: PUBLIC FUNCTIONS
     func uploadProfileImage(userID : String , image : UIImage)
     {
+        // Get the path to store the image via the userID
         let path = getProfileImagePath(userID: userID )
         
+        // Save Image to Path
         DispatchQueue.global(qos: .userInteractive).async {
             self.uploadImage(path: path, image: image) { (_) in }
         }
@@ -74,11 +76,10 @@ struct ImageManager
         }
     }
     
-    // gs://socialmedia-dd00d.appspot.com/posts/4xZGrrv3vJHlR1A68NVW/1
-    
     //MARK: PRIVATE FUNCTIONS
     private func getProfileImagePath(userID : String) -> StorageReference
     {
+        // Specify the path to get the profile details
         let userPath = "users/\(userID)/profile";
         let storagePath = REF_STOR.reference(withPath: userPath)
         return storagePath

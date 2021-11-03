@@ -16,44 +16,38 @@ struct MessageView: View
     {
         HStack
         {
-            NavigationLink {
-                LazyView
+            VStack(alignment: .leading, spacing: 4, content: {
+                Spacer()
+                NavigationLink
                 {
-                    ProfileView(isMyProfile: false, profileDisplayName: comment.username, posts: PostModelArray(userID: comment.userId) , profileUserId: comment.userId, profileBio: " ")
+                    LazyView
+                    {
+                        ProfileView(isMyProfile: false, profileDisplayName: comment.username, posts: PostModelArray(userID: comment.userId) , profileUserId: comment.userId, profileBio: " ")
+                    }
+                } label:
+                {
+                    Image(uiImage: profileImage)
+                        .resizable()
+                        .scaledToFit()
+                        .cornerRadius(20)
+                        .frame(width: 40, height: 40, alignment: .center)
                 }
-            } label: {
-                Image(uiImage: profileImage)
-                    .resizable()
-                    .scaledToFit()
-                    .cornerRadius(20)
-                    .frame(width: 40, height: 40, alignment: .center)
-            }
-
+            })
             
             
             VStack(alignment: .leading, spacing: 4, content: {
+                
                 Text(comment.username)
                     .font(.caption)
-                    .foregroundColor(.gray)
+                    .foregroundColor(.primary)
                 
                 Text(comment.content)
                     .padding(.all , 10)
                     .foregroundColor(.primary)
-                    .background(Color.gray)
+                    .background(Color("Beige"))
                     .cornerRadius(10)
-                
-//                Image("bubble")
-//                        .resizable(capInsets: EdgeInsets(top: 39, leading: 49, bottom: 39, trailing: 49))
-//                        .renderingMode(.template)
-//                        .foregroundColor(.blue)
-//                     Text("Did you hear about the Swift Wombat website?")
-//                        .foregroundColor(.white)
-//                        .padding(.horizontal, 16)
-//                        .padding(.vertical)
-//                        .layoutPriority(1)
-                Spacer()
             })
-            
+            Spacer()
             
             
         }

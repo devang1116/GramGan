@@ -21,8 +21,11 @@ struct ProfileHeaderView: View
             Image(uiImage: profileImage)
                 .resizable()
                 .scaledToFit()
-                .cornerRadius(60)
-                .frame(width: 120, height: 120, alignment: .center)
+                .frame(width: 300, height: 200, alignment: .center)
+                //.cornerRadius(60)
+                .clipShape(Circle())
+                .overlay(Circle().stroke(Color.white, lineWidth: 4))
+                .shadow(radius: 10)
             
             //MARK: Profile User Name
             Text(profileDisplayName)

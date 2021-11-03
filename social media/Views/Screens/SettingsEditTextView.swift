@@ -28,10 +28,11 @@ struct SettingsEditTextView: View
             Text(description)
 
             TextField(placeholder, text: $submissionText)
+                .textFieldStyle(SuperCustomTextFieldStyle())
                 .padding()
                 .frame(height:60)
                 .frame(maxWidth:.infinity)
-                .background(Color.gray)
+                .background(Color("Beige"))
                 .cornerRadius(12)
                 .font(.headline)
                 .autocapitalization(.sentences)
@@ -46,7 +47,7 @@ struct SettingsEditTextView: View
                     .padding()
                     .frame(height:60)
                     .frame(maxWidth:.infinity)
-                    .background(Color.purple)
+                    .background(Color("Purple"))
                     .cornerRadius(12)
                     
             }

@@ -44,7 +44,7 @@ struct SettingsEditImageView: View
                     .padding()
                     .frame(height:60)
                     .frame(maxWidth:.infinity)
-                    .background(Color.yellow)
+                    .background(Color("Yellow"))
                     .cornerRadius(12)
                     
             }
@@ -52,7 +52,6 @@ struct SettingsEditImageView: View
             .sheet(isPresented: $showImagePicker) {
                 ImagePicker(imageSelected: $selectedImage, sourceType: $sourceType)
             }
-
             
             Button {
                 saveImage()
@@ -63,7 +62,7 @@ struct SettingsEditImageView: View
                     .padding()
                     .frame(height:60)
                     .frame(maxWidth:.infinity)
-                    .background(Color.purple)
+                    .background(Color("Purple"))
                     .cornerRadius(12)
                     
             }

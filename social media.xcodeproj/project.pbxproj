@@ -47,6 +47,7 @@
 		DB9B5285272BDC6300C7E936 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B5284272BDC6300C7E936 /* ImagePicker.swift */; };
 		DBA857A3272EF48200830DDA /* GoogleSignInUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA857A2272EF48200830DDA /* GoogleSignInUIView.swift */; };
 		DBB6D1C5272C0CA800605221 /* PostImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB6D1C4272C0CA800605221 /* PostImageView.swift */; };
+		DBC2297527323E37003F149A /* MessageBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC2297427323E37003F149A /* MessageBubble.swift */; };
 		DBC2C9D0272E9DBD00142AFF /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = DBC2C9CF272E9DBD00142AFF /* GoogleSignIn */; };
 		DBC37056272AEA0300E86729 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC37055272AEA0300E86729 /* MessageView.swift */; };
 		DBC37058272AEB2700E86729 /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC37057272AEB2700E86729 /* CommentModel.swift */; };
@@ -113,6 +114,7 @@
 		DB9B5284272BDC6300C7E936 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		DBA857A2272EF48200830DDA /* GoogleSignInUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInUIView.swift; sourceTree = "<group>"; };
 		DBB6D1C4272C0CA800605221 /* PostImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostImageView.swift; sourceTree = "<group>"; };
+		DBC2297427323E37003F149A /* MessageBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBubble.swift; sourceTree = "<group>"; };
 		DBC37055272AEA0300E86729 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		DBC37057272AEB2700E86729 /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
 		DBCC58BA2730C85D004D595B /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
@@ -181,8 +183,8 @@
 		DB12A566272ABF2A003CEBF6 /* social media */ = {
 			isa = PBXGroup;
 			children = (
-				DBD73224272D869D00A45CD7 /* Servies */,
 				DBD73223272D700600A45CD7 /* social-media-Info.plist */,
+				DBD73224272D869D00A45CD7 /* Servies */,
 				DB12A59B272AE1E8003CEBF6 /* Model */,
 				DB12A596272ACB1A003CEBF6 /* Helper */,
 				DB12A593272AC8BA003CEBF6 /* Views */,
@@ -240,6 +242,7 @@
 				DB911B66272CF28F00D87D35 /* SettingsLabelView.swift */,
 				DB22C16F272CF51C00E74EE2 /* SettingsRowView.swift */,
 				DBE7EF32272D169700990A55 /* SigninWithAppleCustomButton.swift */,
+				DBC2297427323E37003F149A /* MessageBubble.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -499,6 +502,7 @@
 				DBC37058272AEB2700E86729 /* CommentModel.swift in Sources */,
 				DBCC58BB2730C85D004D595B /* DataService.swift in Sources */,
 				DBE7EF31272D14E800990A55 /* OnboardingView.swift in Sources */,
+				DBC2297527323E37003F149A /* MessageBubble.swift in Sources */,
 				DBE7EF33272D169700990A55 /* SigninWithAppleCustomButton.swift in Sources */,
 				DB91115F272F09240095D5EA /* AuthService.swift in Sources */,
 				DB12A5A1272AE71C003CEBF6 /* CommentsView.swift in Sources */,

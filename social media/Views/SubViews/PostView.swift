@@ -30,6 +30,9 @@ struct PostView: View
     
     var body: some View
     {
+        GroupBox {
+            
+        } label: {
         VStack(alignment: .center, spacing: 0, content:
         {
             //MARK: Header
@@ -47,13 +50,15 @@ struct PostView: View
                         Image(uiImage: profileImage)
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 30, height: 30, alignment: .center)
-                        .cornerRadius(15)
+                            .frame(width: 50, height: 25, alignment: .center)
+                            .clipShape(Circle())
+                            .cornerRadius(15)
                         
                         Text(post.username)
                             .font(.callout)
                             .fontWeight(.medium)
                             .foregroundColor(.primary)
+                        Spacer()
                     }
 
                     Spacer()
@@ -126,15 +131,18 @@ struct PostView: View
                 HStack {
                     Text(post.caption ?? " ")
                         .font(.caption)
+                        .padding(.horizontal)
                     Spacer(minLength: 0)
                 }
                 .padding(.all , 6)
+                
             }
         })
             .onAppear
             {
                 getImages()
             }
+        }
     }
     
     //MARK: Functions

@@ -28,10 +28,10 @@ struct UploadScreen: View
                     Text("Take Photo".uppercased())
                         .font(.largeTitle)
                         .fontWeight(.bold)
-                        .foregroundColor(Color.yellow)
+                        .foregroundColor(Color("Yellow"))
                 })
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                    .background(Color.purple)
+                    .background(Color("Purple"))
                 
                 Button (action:{
                     sourceType = UIImagePickerController.SourceType.photoLibrary
@@ -40,10 +40,10 @@ struct UploadScreen: View
                     Text("Import Photo".uppercased())
                         .font(.largeTitle)
                         .fontWeight(.bold)
-                        .foregroundColor(Color.purple)
+                        .foregroundColor(Color("Purple"))
                 })
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                    .background(Color.yellow)
+                    .background(Color("Yellow"))
                 
             }
             .edgesIgnoringSafeArea(.top)
@@ -70,10 +70,7 @@ struct UploadScreen: View
             showPostImageView.toggle()
         }
     }
-
 }
-
-
 
 struct UploadScreen_Previews: PreviewProvider
 {

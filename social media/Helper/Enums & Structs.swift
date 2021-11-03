@@ -6,7 +6,9 @@
 //
 
 import Foundation
+import SwiftUI
 
+// Fields within the Database
 struct DatabaseUserFields
 {
     static let display_name = "display_name"
@@ -19,6 +21,7 @@ struct DatabaseUserFields
 
 }
 
+// Fields used for maintaining the UserDefaults
 struct CurrentUserDefaults
 {
     static let displayName = "display_name"
@@ -50,9 +53,25 @@ struct DatabaseCommentsField
 }
 
 // Updating the User Profile Data
-
 enum SettingsEditTextOption
 {
    case displayName
     case bio
+}
+
+// Message Bubble Position
+enum BubblePosition
+{
+    case left
+    case right
+}
+
+// Custom Textfield
+struct SuperCustomTextFieldStyle: TextFieldStyle
+{
+    func _body(configuration: TextField<_Label>) -> some View
+    {
+        configuration
+            .padding()
+    }
 }

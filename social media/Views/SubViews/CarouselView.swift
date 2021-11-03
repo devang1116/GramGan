@@ -12,23 +12,24 @@ struct CarouselView: View
     @State var selection : Int = 0
     var body: some View
     {
-        TabView(selection: $selection,
-                content: {
-            ForEach(1..<8, content: { count in
-                Image("dog\(count)")
-                    .resizable()
-                    .scaledToFit()
-                    .tag(0)
-            })
-            
+        
+            TabView(selection: $selection,
+                    content: {
+                ForEach(1..<8, content: { count in
+                    Image("dog\(count)")
+                        .resizable()
+                        .scaledToFit()
+                        .tag(0)
+                })
                 
-        })
-            .tabViewStyle(PageTabViewStyle())
-            .frame(height:300)
-            .animation(.default)
-            .onAppear(perform : {
-                addTimer()
+                    
             })
+                .tabViewStyle(PageTabViewStyle())
+                .frame(height:300)
+                .animation(.default)
+                .onAppear(perform : {
+                    addTimer()
+                })
     }
     
     func addTimer()
